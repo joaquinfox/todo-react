@@ -35,3 +35,9 @@ span {
   padding: 0 2%;
   text-decoration: underline;
 }
+
+.warning {
+  color: red;
+  text-align: center;
+  box-shadow: 2px 3px 5px rgb(75, 22, 22);
+}

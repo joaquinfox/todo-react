@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -12,8 +12,15 @@ function App() {
   };
 
   const handleNew = (e) => {
-    let newItem = { name: e.target.value, id: new Date().getTime().toString() };
-    setTask(newItem);
+    if (e.target.value.length > 0) {
+      let newItem = {
+        name: e.target.value,
+        id: new Date().getTime().toString(),
+      };
+      setTask(newItem);
+    } else {
+      setIsError(true);
+    }
   };
 
   const handleEdit = (id, editedTask) => {
@@ -24,11 +31,17 @@ function App() {
     setTaskList(remainingTasks);
     console.log(taskList);
   };
+
+  //   useEffect(() => {
+  //     setTimeout(() => {
+  //       setIsError(false);
+  //     }, 3000);
+  //   });
   return (
     <main>
-      {isError && <p>No empty entries please.</p>}
       <div className="container">
         <h1>Todo</h1>
+        {isError && <p className="warning">No empty entries please.</p>}
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleNew} value={task.name} />
           <button>+</button>
