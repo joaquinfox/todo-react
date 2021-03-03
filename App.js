@@ -2,25 +2,22 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [taskList, setTaskList] = useState([]);
-  const [task, setTask] = useState('');
+  const [task, setTask] = useState({});
   const [isError, setIsError] = useState(false);
 
   const handleSubmit = (e) => {
+    console.log(task.name.length);
     e.preventDefault();
     setTaskList([...taskList, task]);
-    setTask('');
+    setTask({});
   };
 
   const handleNew = (e) => {
-    if (e.target.value.length > 0) {
-      let newItem = {
-        name: e.target.value,
-        id: new Date().getTime().toString(),
-      };
-      setTask(newItem);
-    } else {
-      setIsError(true);
-    }
+    let newItem = {
+      name: e.target.value,
+      id: new Date().getTime().toString(),
+    };
+    setTask(newItem);
   };
 
   const handleEdit = (id, editedTask) => {
@@ -32,11 +29,12 @@ function App() {
     console.log(taskList);
   };
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       setIsError(false);
-  //     }, 3000);
-  //   });
+  useEffect(() => {
+    setTimeout(() => {
+      setIsError(false);
+    }, 5000);
+  });
+
   return (
     <main>
       <div className="container">
