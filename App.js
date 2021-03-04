@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import List from './List';
 
 const getLocalStorage = () => {
-  let list = localStorage.getItem('list');
-  if (list) {
-    return (list = JSON.parse(localStorage.getItem('list')));
+  let taskList = localStorage.getItem('list');
+  if (taskList) {
+    return (taskList = JSON.parse(localStorage.getItem('list')));
   } else {
     return [];
   }
 };
+
 function App() {
-  const [task, setTask] = useState({});
+  const [task, setTask] = useState('');
   const [taskList, setTaskList] = useState(getLocalStorage());
   const [isError, setIsError] = useState({ show: false, msg: '', type: '' });
   const [isEditing, setIsEditing] = useState(false);
@@ -20,30 +21,35 @@ function App() {
     e.preventDefault();
     if (!task) {
       setIsError({ show: true, msg: 'no blanks', type: 'reject' });
-    } else if (isEditing && task) {
-      taskList.map((i) => {
-        if (i.id === editID) {
-          return { ...task, i };
-        }
-      });
+    } else if (task && isEditing) {
+      setTaskList(
+        taskList.map((i) => {
+          if (i.id === editID) {
+            return { ...i, title: task };
+          }
+          return i;
+        })
+      );
+      setTask('');
+      setEditID(null);
+      setIsEditing(false);
     } else {
-      setTaskList([...taskList, task]);
+      const newItem = { title: task, id: new Date().getTime().toString() };
+      setTaskList([...taskList, newItem]);
+      setTask('');
     }
-    setTask({});
   };
 
   const handleNew = (e) => {
-    let newItem = {
-      title: e.target.value,
-      id: new Date().getTime().toString(),
-    };
-    setTask(newItem);
+    setTask(e.target.value);
   };
 
   const handleEdit = (id) => {
     const targetItem = taskList.find((i) => i.id === id);
     setIsEditing(true);
-    setEditID(targetItem.id);
+    setEditID(id);
+    setTask(targetItem.title);
+    console.log('handleEdit');
   };
   // const handleEdit = (id, editedTask) => {
   //   let editedTaskList = taskList;
@@ -65,7 +71,7 @@ function App() {
       <div className="container">
         <h1>Todo</h1>
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={handleNew} value={task.title} />
+          <input type="text" onChange={handleNew} value={task} />
           <button>+</button>
         </form>
         <section id="todo">

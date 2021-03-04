@@ -11,7 +11,7 @@ function List({ taskList, handleEdit }) {
               {title}
               <span>
                 <span>X</span>
-                <span onClick={() => handleEdit(id)}>E</span>
+                <button onClick={() => handleEdit(id)}>E</button>
               </span>
             </p>
           </article>
