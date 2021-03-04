@@ -12,23 +12,39 @@ const getLocalStorage = () => {
 function App() {
   const [task, setTask] = useState({});
   const [taskList, setTaskList] = useState(getLocalStorage());
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState({ show: false, msg: '', type: '' });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editID, setEditID] = useState(null);
 
   const handleSubmit = (e) => {
-    console.log(task.name.length);
     e.preventDefault();
-    setTaskList([...taskList, task]);
+    if (!task) {
+      setIsError({ show: true, msg: 'no blanks', type: 'reject' });
+    } else if (isEditing && task) {
+      taskList.map((i) => {
+        if (i.id === editID) {
+          return { ...task, i };
+        }
+      });
+    } else {
+      setTaskList([...taskList, task]);
+    }
     setTask({});
   };
 
   const handleNew = (e) => {
     let newItem = {
-      name: e.target.value,
+      title: e.target.value,
       id: new Date().getTime().toString(),
     };
     setTask(newItem);
   };
 
+  const handleEdit = (id) => {
+    const targetItem = taskList.find((i) => i.id === id);
+    setIsEditing(true);
+    setEditID(targetItem.id);
+  };
   // const handleEdit = (id, editedTask) => {
   //   let editedTaskList = taskList;
   // };
@@ -53,7 +69,7 @@ function App() {
           <button>+</button>
         </form>
         <section id="todo">
-          <List />
+          <List taskList={taskList} handleEdit={handleEdit} />
         </section>
       </div>
     </main>
