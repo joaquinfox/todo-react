@@ -39,6 +39,10 @@ function App() {
     setTaskName(itemToEdit.title);
   };
 
+  const handleDelete = (id) => {
+    const remainingItems = taskList.filter((i) => i.id !== id);
+    setTaskList(remainingItems);
+  };
   return (
     <main>
       <div id="container">
@@ -48,7 +52,11 @@ function App() {
           <button>Submit</button>
         </form>
         <section>
-          <List taskList={taskList} handleEdit={handleEdit} />
+          <List
+            taskList={taskList}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         </section>
       </div>
     </main>

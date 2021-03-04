@@ -1,5 +1,5 @@
 import React from 'react';
-function List({ taskList, handleEdit }) {
+function List({ taskList, handleEdit, handleDelete }) {
   return (
     <div>
       {taskList.map((i) => {
@@ -15,7 +15,11 @@ function List({ taskList, handleEdit }) {
               >
                 E
               </button>
-              <button className="action-buttons" id="delete-button">
+              <button
+                onClick={() => handleDelete(id)}
+                className="action-buttons"
+                id="delete-button"
+              >
                 D
               </button>
             </span>
