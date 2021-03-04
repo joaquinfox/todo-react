@@ -1,19 +1,24 @@
 import React from 'react';
-
 function List({ taskList, handleEdit }) {
   return (
     <div>
-      {taskList.map((task) => {
-        const { id, title } = task;
+      {taskList.map((i) => {
+        const { id, title } = i;
         return (
           <article key={id}>
-            <p>
-              {title}
-              <span>
-                <span>X</span>
-                <button onClick={() => handleEdit(id)}>E</button>
-              </span>
-            </p>
+            {title}
+            <span className="button-group">
+              <button
+                onClick={() => handleEdit(id)}
+                className="action-buttons"
+                id="edit-button"
+              >
+                E
+              </button>
+              <button className="action-buttons" id="delete-button">
+                D
+              </button>
+            </span>
           </article>
         );
       })}

@@ -2,42 +2,26 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  padding: 0;
   box-sizing: border-box;
 }
-main {
-  display: flex;
-}
-h1 {
-  text-align: center;
-}
-.container {
+#container {
+  width: 60%;
   margin: auto;
-  box-shadow: 5px 5px 50px;
-  width: 50%;
-  padding: 5%;
-}
-form {
   text-align: center;
-  margin: 5%;
+  box-shadow: 1px 1px 500px rgb(182, 169, 169);
 }
-
-li {
-  text-align: center;
+.button-group {
+  margin-left: 50%;
 }
-
-#button-container {
-  margin-left: 10%;
-}
-
-#button-container,
-span {
+.action-buttons {
+  width: 5%;
   padding: 0 2%;
-  text-decoration: underline;
 }
-
-.warning {
-  color: red;
-  text-align: center;
-  box-shadow: 2px 3px 5px rgb(75, 22, 22);
+#edit-button {
+  color: white;
+  background-color: green;
+}
+#delete-button {
+  background-color: red;
+  color: white;
 }
